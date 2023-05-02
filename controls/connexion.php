@@ -14,26 +14,30 @@ if(isset($_POST["btnvalider"])){
     if(isset($_POST["matricule"])){
         $matricule = htmlspecialchars($_POST["matricule"]);
         echo"merci1";
+        echo $matricule;
         $slt = $conn->prepare("SELECT `matriculevoiture`, `couleur`, `marque`, `idpro` FROM `voiture` WHERE `matriculevoiture`=?");
         $slt1 = $conn->prepare("SELECT `idpro`, `nom`, `adresse`, `matriculevoiture` FROM `proprietaire` WHERE `matriculevoiture`=?");
         $result = $slt->execute([$matricule]);
         $result1 = $slt1->execute([$matricule]);
-        $data = $slt1->fetch();
+        $data1 = $slt1->fetch();
         $data = $slt->fetch();
         $row =$slt->rowCount();
 
-        if($row>0){
+        // var_dump($data1);
+        var_dump($data);
+
+        if($row>=1){
             if($data["matriculevoiture"] = $_POST["matricule"]){
-                $slt2 = $conn->prepare("SELECT * FROM `voiture` INNER JOIN `proprietaire` ON voiture.matriculevoiture=proprietaire.matriculevoiture");
-                $result2 = $slt2->execute();
-                $data = $slt2->fetch();
-                $_SESSION["mat"] = $data["matriculevoiture"];
-                $_SESSION["couleur"] = $data["couleur"];
-                $_SESSION["marque"] = $data["marque"];
-                $_SESSION["nom"] = $data["nom"];
-                $_SESSION["adresse"] = $data["adresse"];
-                // echo $slt2;
-                var_dump($data);
+                $slt2 = $conn->prepare("SELECT * FROM `voiture`  INNER JOIN `proprietaire` ON voiture.matriculevoiture=proprietaire.matriculevoiture");
+                $result2 = $slt2->execute([$matricule]);
+                $data2 = $slt2->fetchAll();
+                $row1 = $slt2->rowCount();
+                    $_SESSION["mat"] = $data["matriculevoiture"];
+                    $_SESSION["couleur"] = $data["couleur"];
+                    $_SESSION["marque"] = $data["marque"];
+                    $_SESSION["nom"] = $data1["nom"];
+                    $_SESSION["adresse"] = $data1["adresse"];
+                var_dump($_SESSION);
                 echo"merci2";
 
                 header("Location: http://127.0.0.1:80/parking/views/acceuil.php?action=bienvenu");

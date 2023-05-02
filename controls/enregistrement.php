@@ -1,7 +1,5 @@
 <?php
 include('connexion.php');
-session_destroy();
-session_start();
 
 if(isset($_POST["btnajouter"])){
     if(isset($_POST["matricule"]) && isset($_POST["couleur"]) && isset($_POST["marque"]) && isset($_POST["nom"]) && isset($_POST["adresse"])){
@@ -15,14 +13,20 @@ if(isset($_POST["btnajouter"])){
             global $conn;
             $insert = $conn->prepare("INSERT INTO `proprietaire`(`idpro`, `nom`, `adresse`, `matriculevoiture`) VALUES (?, ?, ?, ?)");
             $result = $insert->execute([null, $nom, $adresse, $matricule]);
-            $data = $insert->fetch();
-            $row = $insert->rowCount();
-            if($row<=0){
-                $_SESSION["idpro"] = $data["idpro"];
-                $_SESSION["nom"] = $data["nom"];
-                $_SESSION["adresse"] = $data["adresse"];
-                $id = $_SESSION["idpro"];
-            }
+            $data = $insert->fetchAll();
+            // if($row>=0){
+                $select = $conn->prepare("SELECT `idpro` FROM `proprietaire` WHERE `matriculevoiture`=?");
+                $result = $select->execute([$matricule]);
+                var_dump($result);
+                $data = $select->fetch(); 
+                
+                $_SESSION["mat"] = $matricule;
+                $_SESSION["id"] = $data["idpro"];
+                $_SESSION["nom"] = $nom;
+                $_SESSION["adresse"] = $adresse;
+                $id = $_SESSION["id"];
+                var_dump($_SESSION);
+            // }
             // global $id;
             // $insert1 = $conn->prepare("INSERT INTO `voiture`(`matriculevoiture`, `couleur`, `marque`, `idpro`) VALUES (?, ?, ?, ?)");
             // $result1 = $insert1->execute([$matricule, $couleur, $marque, $id]);
@@ -35,24 +39,39 @@ if(isset($_POST["btnajouter"])){
             // // }
         }
         insert($nom, $adresse, $matricule, $matricule);
+        
 
-
+        $id = $_SESSION["id"];
         function insert1($matricule, $couleur, $marque, $id){
-            global $id, $conn;
-            $insert1 = $conn->prepare("INSERT INTO `voiture`(`matriculevoiture`, `couleur`, `marque`, `idpro`) VALUES (?, ?, ?, ?)");
-            $result1 = $insert1->execute([$matricule, $couleur, $marque, $id]);
-            $data1 = $insert1->fetch();
-            $row = $insert1->rowCount();
-            if($row<=0){
-                $_SESSION["mat"] = $data1["matriculevoiture"];
-                $_SESSION["couleur"] = $data1["couleur"];
-                $_SESSION["marque"] = $data1["marque"];
-            }
+            global $conn;
+            var_dump($matricule, $couleur, $marque, $id);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $inserts = $conn->prepare("INSERT INTO `voiture`(`matriculevoiture`, `couleur`, `marque`, `idpro`) VALUES (?, ?, ?, ?)");
+            $result1 = $inserts->execute([$matricule, $couleur, $marque, $id]);
+            $data1 = $inserts->fetch();
+            echo "result1";
+            var_dump($result1);
+            echo"data1";
+            var_dump($data1);
+            // $row = $inserts->rowCount();
+            // if($row<=0){
+                $select1 = $conn->prepare("SELECT * FROM `proprietaire` WHERE `matriculevoiture`=?");
+                $result = $select1->execute([$matricule]);
+                var_dump($result);
+                $data = $select1->fetch();
+
+                // $_SESSION["mat"] = $data1["matriculevoiture"];
+                // var_dump($_SESSION["mat"]);
+                $_SESSION["couleur"] = $couleur;
+                $_SESSION["marque"] = $marque;
+                var_dump($_SESSION["couleur"]);
+                var_dump($_SESSION["marque"]);
+            // // }
         }
         insert1($matricule, $couleur, $marque, $id);
     }
 }
-// header("Location: http://127.0.0.1:80/parking/views/acceuil.php?action=enregistrement_recu");
+header("Location: http://127.0.0.1:80/parking/views/acceuil.php?action=enregistrement_recu");
 
 
 ?>

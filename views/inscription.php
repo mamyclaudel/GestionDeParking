@@ -19,7 +19,7 @@ session_start();
     <div class="row ">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
-            <h2 class="text-center text-muted mt-4">Enregistrement</h2>
+            <h2 class="text-center text-muted mt-4 pb-2" style="border-bottom-style:ridge; font-weight:bold; font-family:time new roman;">Enregistrement :</h2>
             <form action="http://127.0.0.1:80/parking/controls/enregistrement.php?action=enregistre" method="POST" class = "shadow border mt-4 p-4" style="border-radius: 2%;">
                 <input class="form-control mb-4" type="text" name="matricule" id="matricule" placeholder="Numéro matricule">
                 <input class="form-control mb-4" type="text" name="couleur" id="couleur" placeholder="Couleur de la voiture">
@@ -28,12 +28,15 @@ session_start();
                 <input class="form-control mb-4" type="text" name="adresse" id="adresse" placeholder="Adresse de la propiétaire">
 
                 <div class="row">
-                    <div class="col-sm-8"></div>
+                    <div class="col-sm-6"></div>
                     <div class="col-sm-2">
                         <input class="btn btn-outline-warning  btn-block mb-2" type="submit"  name ="btnajouter" value="Ajouter">
                     </div>
                     <div class="col-sm-2">
-                        <input class="btn btn-outline-danger  btn-block" type="submit" name="btnannuler" value="Annuler">
+                        <input class="btn btn-outline-danger  btn-block" type="reset" name="btnannuler" value="Annuler" accesskey="r">
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="http://127.0.0.1:80/parking/index.html" class="btn btn-outline-secondary  btn-block"  name="btnannuler" >Retour</a>
                     </div>
                 </div>
             </form>
