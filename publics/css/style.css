@@ -1,0 +1,6 @@
+.btn:hover{
+    transform: translate(-12px, -6px);
+    font-weight:bold;
+    font-style: italic;
+    text-decoration: underline;
+}

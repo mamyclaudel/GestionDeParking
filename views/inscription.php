@@ -33,7 +33,7 @@ session_start();
                         <input class="btn btn-outline-warning  btn-block mb-2" type="submit"  name ="btnajouter" value="Ajouter">
                     </div>
                     <div class="col-sm-2">
-                        <input class="btn btn-outline-danger  btn-block" type="reset" name="btnannuler" value="Annuler" accesskey="r">
+                        <input class="btn btn-outline-danger  btn-block mb-2" type="reset" name="btnannuler" value="Annuler" accesskey="r">
                     </div>
                     <div class="col-sm-2">
                         <a href="http://127.0.0.1:80/parking/index.html" class="btn btn-outline-secondary  btn-block"  name="btnannuler" >Retour</a>
