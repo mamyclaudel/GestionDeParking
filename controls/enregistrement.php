@@ -11,9 +11,6 @@ if(isset($_POST["btnajouter"])){
         $nom = htmlspecialchars($_POST["nom"]);
         $adresse = htmlspecialchars($_POST["adresse"]);
 
-        // $id = $_SESSION["id"];
-        // ;
-
                 $select = $conn->prepare("SELECT * FROM `voiture` WHERE `matriculevoiture`=?");
                 $result = $select->execute([$matricule]);
                 var_dump($result);
@@ -62,7 +59,7 @@ if(isset($_POST["btnajouter"])){
                     header("Location: http://127.0.0.1:80/parking/views/acceuil.php?action=enregistrement_recu");
 
                 } else{
-                    $_SESSION["error"] = $erreur;
+                    // $_SESSION["error"] = $erreur;
                     header("Location: http://127.0.0.1/parking/views/inscription.php?action=existedeja");
                 }
     }
