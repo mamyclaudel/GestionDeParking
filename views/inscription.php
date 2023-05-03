@@ -21,11 +21,11 @@ session_start();
         <div class="col-sm-8">
             <h2 class="text-center text-muted mt-4 pb-2" style="border-bottom-style:ridge; font-weight:bold; font-family:time new roman;">Enregistrement :</h2>
             <form action="http://127.0.0.1:80/parking/controls/enregistrement.php?action=enregistre" method="POST" class = "shadow border mt-4 p-4" style="border-radius: 2%;">
-                <!-- <p><?php echo $_SESSION["error"];   ?></p> -->
-                <input class="form-control mb-4" type="text" name="matricule" id="matricule" placeholder="Numéro matricule">
+                <p class="text-center" style="color:red; font-style:italic; font-family:time new roman;"><?php echo $_SESSION["erreur"] ;   ?></p>
+                <input class="form-control mb-4" type="text" name="matricule" id="matricule" placeholder="Numéro matricule" required>
                 <input class="form-control mb-4" type="text" name="couleur" id="couleur" placeholder="Couleur de la voiture">
                 <input class="form-control mb-4" type="text" name="marque" id="marque" placeholder="Marque">
-                <input class="form-control mb-4" type="text" name="nom" id="nom" placeholder="Nom de la propriétaire">
+                <input class="form-control mb-4" type="text" name="nom" id="nom" placeholder="Nom de la propriétaire" required>
                 <input class="form-control mb-4" type="text" name="adresse" id="adresse" placeholder="Adresse de la propiétaire">
 
                 <div class="row">

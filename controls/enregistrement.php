@@ -1,7 +1,7 @@
 <?php
 include('connexion.php');
 
-$erreur ="Le numéro matricule est très longue ou déjà existe!";
+$erreur="";
 
 if(isset($_POST["btnajouter"])){
     if(isset($_POST["matricule"]) && isset($_POST["couleur"]) && isset($_POST["marque"]) && isset($_POST["nom"]) && isset($_POST["adresse"])){
@@ -58,8 +58,10 @@ if(isset($_POST["btnajouter"])){
                     insert1($matricule, $couleur, $marque, $id);
                     header("Location: http://127.0.0.1:80/parking/views/acceuil.php?action=enregistrement_recu");
 
-                } else{
-                    // $_SESSION["error"] = $erreur;
+                }else{
+                    $erreur ="Le numéro matricule est très longue ou déjà existe!";
+                    $_SESSION["erreur"] = $erreur;
+                    var_dump($_SESSION["erreur"]);
                     header("Location: http://127.0.0.1/parking/views/inscription.php?action=existedeja");
                 }
     }
